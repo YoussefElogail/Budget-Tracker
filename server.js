@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const morgan = require("morgan");
 
 const incomeCategoriesRoute = require("./routes/IncomeCategory.route");
+const expenseCategoriesRoute = require("./routes/expenseCategory.route");
 const ApiError = require("./util/ApiError");
 
 dotenv.config({ path: "./config.env" });
@@ -22,7 +23,9 @@ if (process.env.NODE_ENV === "development") {
 app.get("/", (req, res) => {
   res.send(`<h1>hello to Budget Tracker app</h1>`);
 });
+
 app.use("/api/v1/income-categories", incomeCategoriesRoute);
+app.use("/api/v1/expense-categories", expenseCategoriesRoute);
 
 app.all(/.*/, (req, res, next) => {
   next(
