@@ -7,6 +7,7 @@ const {
   deleteWallet,
   getAllWallets,
   addUserToWallet,
+  userWallets,
 } = require("../controllers/wallet.controller");
 const {
   createWalletValidator,
@@ -16,12 +17,12 @@ const {
 } = require("../util/validators/wallet.validators");
 const { protect, allowedTo } = require("../controllers/auth.controller");
 
-const router = Router();
+const router = Router({ mergeParams: true });
 
 router
   .route("/")
   .post(protect, createWalletValidator, addUserToWallet, createWallet)
-  .get(getAllWallets);
+  .get(userWallets, getAllWallets);
 router
   .route("/:id")
   .get(protect, showWalletValidator, finedWallet)

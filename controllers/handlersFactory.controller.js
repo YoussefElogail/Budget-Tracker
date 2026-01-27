@@ -13,7 +13,12 @@ const createOne = (Model, modelName = "") =>
 
 const getAll = (Model, modelName = "") =>
   asyncHandler(async (req, res) => {
-    const model = await Model.find();
+    let filter = {};
+    if (req?.filtering) {
+      filter = req.filtering;
+    }
+    console.log(req.params);
+    const model = await Model.find(filter);
     res.status(STATUS_CODE.SUCCESS).json({
       status: STATUS.SUCCESS,
       data: model,

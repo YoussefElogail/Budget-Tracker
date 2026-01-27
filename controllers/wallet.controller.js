@@ -16,6 +16,13 @@ const addUserToWallet = asyncHandler(async (req, res, next) => {
   next();
 });
 
+const userWallets = asyncHandler(async (req, res, next) => {
+  if (req.params.id) {
+    req.filtering = { user: req.params.id };
+  }
+  next();
+});
+
 // Create a new wallet
 const createWallet = createOne(Wallet, "wallet");
 
@@ -38,4 +45,5 @@ module.exports = {
   finedWallet,
   updateWallet,
   deleteWallet,
+  userWallets,
 };

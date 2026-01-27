@@ -26,24 +26,26 @@ const userSchema = new mongoose.Schema(
     address: [String],
     dateOfBirth: Date,
     jobs: [String],
-    role: {
-      type: String,
-      enum: ["user", "admin"],
-      default: "user",
-    },
-    wallets: [
-      {
-        type: mongoose.Schema.ObjectId,
-        ref: "Wallet",
-      },
-    ],
+    role: { type: String, enum: ["user", "admin"], default: "user" },
     profileImage: String,
   },
-  { timestamps: true },
+  {
+    timestamps: true,
+    // عشان الـ Virtuals تظهر في الـ JSON
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  },
 );
 
-userSchema.pre("save", function () {
-  this.password = bcrypt.hashSync(this.password, 10);
+userSchema.pre("save", async function () {
+  if (!this.isModified("password")) return;
+  this.password = await bcrypt.hash(this.password, 12);
+});
+
+userSchema.virtual("wallets", {
+  ref: "Wallet",
+  foreignField: "user",
+  localField: "_id",
 });
 
 const User = mongoose.model("User", userSchema);
