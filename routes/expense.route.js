@@ -8,12 +8,13 @@ const {
   getAllExpenses,
   addUserToExpense,
 } = require("../controllers/expense.controller");
-// const {
-//   createExpenseValidator,
-//   updateExpenseValidator,
-//   showExpenseValidator,
-//   deleteExpenseValidator,
-// } = require("../util/validators/expense.validators");
+const {
+  createExpenseValidator,
+
+  updateExpenseValidator,
+  showExpensesValidator,
+  deleteExpenseValidator,
+} = require("../util/validators/expenses.validator");
 const { protect, allowedTo } = require("../controllers/auth.controller");
 
 const router = Router();
@@ -22,27 +23,16 @@ router
   .route("/")
   .post(
     protect,
-    // createExpenseValidator,
+    allowedTo("user"),
+    createExpenseValidator,
     addUserToExpense,
     createExpense,
   )
-  .get(getAllExpenses);
+  .get(protect, getAllExpenses);
 router
   .route("/:id")
-  .get(
-    protect,
-    // , showExpenseValidator
-    finedExpense,
-  )
-  .put(
-    protect,
-    //  updateExpenseValidator,
-    updateExpense,
-  )
-  .delete(
-    protect,
-    //  deleteExpenseValidator,
-    deleteExpense,
-  );
+  .get(protect, allowedTo("user", "admin"), showExpensesValidator, finedExpense)
+  .put(protect, allowedTo("user"), updateExpenseValidator, updateExpense)
+  .delete(protect, allowedTo("user"), deleteExpenseValidator, deleteExpense);
 
 module.exports = router;

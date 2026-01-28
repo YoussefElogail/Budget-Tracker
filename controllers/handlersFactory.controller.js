@@ -3,6 +3,7 @@ const { STATUS_CODE, STATUS } = require("../util/constants");
 
 const createOne = (Model, modelName = "") =>
   asyncHandler(async (req, res) => {
+    console.log(Model);
     const model = await Model.create(req.body);
     res.status(STATUS_CODE.CREATED).json({
       status: STATUS.SUCCESS,

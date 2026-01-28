@@ -9,6 +9,7 @@ const userRoute = require("./routes/user.route");
 const authRoute = require("./routes/auth.route");
 const walletRoute = require("./routes/wallet.route");
 const expenseRoute = require("./routes/expense.route");
+const incomeRoute = require("./routes/income.route");
 
 const ApiError = require("./util/ApiError");
 
@@ -35,6 +36,7 @@ app.use("/api/v1/users", userRoute);
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/wallets", walletRoute);
 app.use("/api/v1/expenses", expenseRoute);
+app.use("/api/v1/incomes", incomeRoute);
 
 app.all(/.*/, (req, res, next) => {
   next(
@@ -65,3 +67,5 @@ process.on("unhandledRejection", (err) => {
     process.exit(1);
   });
 });
+
+module.exports = app;

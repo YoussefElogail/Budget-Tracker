@@ -1,6 +1,12 @@
 const { Router } = require("express");
 
-const { signin, register } = require("../controllers/auth.controller");
+const {
+  signin,
+  register,
+  getMe,
+  protect,
+  getMyWallets,
+} = require("../controllers/auth.controller");
 const {
   signinValidator,
   registerValidator,
@@ -10,5 +16,7 @@ const router = Router();
 
 router.post("/signin", signinValidator, signin);
 router.post("/register", registerValidator, register);
+router.get("/get-me", protect, getMe);
+router.get("/get-my-wallets", protect, getMyWallets);
 
 module.exports = router;

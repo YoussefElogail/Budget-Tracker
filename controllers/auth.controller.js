@@ -6,6 +6,7 @@ const User = require("../models/user.model");
 const { STATUS_CODE, STATUS } = require("../util/constants");
 const jwtGenerator = require("../util/jwtGenerator");
 const ApiError = require("../util/ApiError");
+const Wallet = require("../models/wallet.model");
 
 const signin = asyncHandler(async (req, res, next) => {
   const { email, password } = req.body;
@@ -32,6 +33,32 @@ const register = asyncHandler(async (req, res) => {
     status: STATUS.SUCCESS,
     message: "User create successfully",
     user,
+  });
+});
+
+const getMe = asyncHandler(async (req, res, next) => {
+  if (!req.user) return next(new ApiError("log in first", 404));
+  const user = await User.findById(req.user.id, "-password");
+
+  if (!user) {
+    return next(new ApiError("User not found", 404));
+  }
+  res.status(STATUS_CODE.SUCCESS).json({
+    status: STATUS.SUCCESS,
+    user,
+  });
+});
+
+const getMyWallets = asyncHandler(async (req, res, next) => {
+  if (!req.user) return next(new ApiError("log in first", 404));
+  const wallets = await Wallet.find({ user: req.user.id });
+
+  if (!wallets) {
+    return next(new ApiError("Wallets not found", 404));
+  }
+  res.status(STATUS_CODE.SUCCESS).json({
+    status: STATUS.SUCCESS,
+    wallets,
   });
 });
 
@@ -63,16 +90,17 @@ const protect = asyncHandler(async (req, res, next) => {
 });
 
 const allowedTo =
-  (roles = []) =>
+  (...roles) =>
   (req, res, next) => {
-    console.log(req.user);
+    console.log(roles, req.user.role);
     if (roles.includes(req.user.role)) {
       next();
+    } else {
+      res.status(STATUS_CODE.UNAUTHORIZED).json({
+        status: STATUS.FAIL,
+        message: "You are not authored to access this route",
+      });
     }
-    res.status(STATUS_CODE.UNAUTHORIZED).json({
-      status: STATUS.FAIL,
-      message: "You are not authored to access this route",
-    });
   };
 
 module.exports = {
@@ -80,4 +108,6 @@ module.exports = {
   register,
   protect,
   allowedTo,
+  getMe,
+  getMyWallets,
 };
