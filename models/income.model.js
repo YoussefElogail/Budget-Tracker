@@ -68,6 +68,12 @@ incomeSchema.post("save", async function () {
   });
 });
 
+incomeSchema.post("remove", async function () {
+  await Wallet.findByIdAndUpdate(this.wallet, {
+    $inc: { balance: -this.amount },
+  });
+});
+
 const Income = mongoose.model("Income", incomeSchema);
 
 module.exports = Income;

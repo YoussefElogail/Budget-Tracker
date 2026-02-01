@@ -3,7 +3,7 @@ const { Router } = require("express");
 const {
   createExpenseCategory,
   getAllExpenseCategories,
-  fineExpenseCategory,
+  findExpenseCategory,
   updateExpenseCategory,
   deleteExpenseCategory,
 } = require("../controllers/expenseCategory.controller");
@@ -28,7 +28,7 @@ router
   .route("/:id")
   .get(
     showCategoryValidator(ExpenseCategory, "expense category"),
-    fineExpenseCategory,
+    findExpenseCategory,
   )
   .put(
     UpdateCategoryValidator(ExpenseCategory, "expense category"),

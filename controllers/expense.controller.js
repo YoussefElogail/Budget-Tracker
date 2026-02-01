@@ -19,11 +19,11 @@ const addUserToExpense = asyncHandler(async (req, res, next) => {
 // Create a new expense
 const createExpense = createOne(Expense, "expense");
 
-// find all expenses
+// get all expenses
 const getAllExpenses = getAll(Expense);
 
-//  fined one expense
-const finedExpense = getOne(Expense);
+//  find one expense
+const findExpense = getOne(Expense);
 
 // update expense
 const updateExpense = updateOne(Expense, "expense");
@@ -35,7 +35,7 @@ module.exports = {
   addUserToExpense,
   createExpense,
   getAllExpenses,
-  finedExpense,
+  findExpense,
   updateExpense,
   deleteExpense,
 };

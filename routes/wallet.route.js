@@ -2,7 +2,7 @@ const { Router } = require("express");
 
 const {
   createWallet,
-  finedWallet,
+  findWallet,
   updateWallet,
   deleteWallet,
   getAllWallets,
@@ -22,10 +22,10 @@ const router = Router({ mergeParams: true });
 router
   .route("/")
   .post(protect, createWalletValidator, addUserToWallet, createWallet)
-  .get(userWallets, getAllWallets);
+  .get(protect, allowedTo("admin"), userWallets, getAllWallets);
 router
   .route("/:id")
-  .get(protect, showWalletValidator, finedWallet)
+  .get(protect, showWalletValidator, findWallet)
   .put(protect, updateWalletValidator, updateWallet)
   .delete(protect, deleteWalletValidator, deleteWallet);
 

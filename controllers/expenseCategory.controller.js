@@ -15,8 +15,8 @@ const createExpenseCategory = createOne(ExpenseCategory, "expense category");
 // find all expense categories
 const getAllExpenseCategories = getAll(ExpenseCategory);
 
-//  fine one expense category
-const fineExpenseCategory = getOne(ExpenseCategory);
+//  find one expense category
+const findExpenseCategory = getOne(ExpenseCategory);
 
 // update expense category
 const updateExpenseCategory = updateOne(ExpenseCategory, "expense category");
@@ -27,7 +27,7 @@ const deleteExpenseCategory = deleteOne(ExpenseCategory, "expense category");
 module.exports = {
   createExpenseCategory,
   getAllExpenseCategories,
-  fineExpenseCategory,
+  findExpenseCategory,
   updateExpenseCategory,
   deleteExpenseCategory,
 };

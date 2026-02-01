@@ -15,8 +15,8 @@ const createIncomeCategory = createOne(IncomeCategory, "income category");
 // find all income categories
 const getAllIncomeCategories = getAll(IncomeCategory);
 
-//  fine one income category
-const fineIncomeCategory = getOne(IncomeCategory);
+//  find one income category
+const findIncomeCategory = getOne(IncomeCategory);
 
 // update income category
 const updateIncomeCategory = updateOne(IncomeCategory, "income category");
@@ -27,7 +27,7 @@ const deleteIncomeCategory = deleteOne(IncomeCategory, "income category");
 module.exports = {
   createIncomeCategory,
   getAllIncomeCategories,
-  fineIncomeCategory,
+  findIncomeCategory,
   updateIncomeCategory,
   deleteIncomeCategory,
 };

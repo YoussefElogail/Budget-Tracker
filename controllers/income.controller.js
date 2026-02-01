@@ -22,8 +22,8 @@ const createIncome = createOne(Income, "income");
 // find all incomes
 const getAllIncomes = getAll(Income);
 
-//  fined one income
-const finedIncome = getOne(Income);
+//  find one income
+const findIncome = getOne(Income);
 
 // update income
 const updateIncome = updateOne(Income, "income");
@@ -35,7 +35,7 @@ module.exports = {
   addUserToIncome,
   createIncome,
   getAllIncomes,
-  finedIncome,
+  findIncome,
   updateIncome,
   deleteIncome,
 };

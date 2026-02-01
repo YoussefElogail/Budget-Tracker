@@ -2,7 +2,7 @@ const { Router } = require("express");
 
 const {
   createExpense,
-  finedExpense,
+  findExpense,
   updateExpense,
   deleteExpense,
   getAllExpenses,
@@ -31,7 +31,7 @@ router
   .get(protect, getAllExpenses);
 router
   .route("/:id")
-  .get(protect, allowedTo("user", "admin"), showExpensesValidator, finedExpense)
+  .get(protect, allowedTo("user", "admin"), showExpensesValidator, findExpense)
   .put(protect, allowedTo("user"), updateExpenseValidator, updateExpense)
   .delete(protect, allowedTo("user"), deleteExpenseValidator, deleteExpense);
 

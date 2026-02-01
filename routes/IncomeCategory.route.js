@@ -3,7 +3,7 @@ const { Router } = require("express");
 const {
   createIncomeCategory,
   getAllIncomeCategories,
-  fineIncomeCategory,
+  findIncomeCategory,
   updateIncomeCategory,
   deleteIncomeCategory,
 } = require("../controllers/incomeCategory.controller");
@@ -31,7 +31,7 @@ router
   .route("/:id")
   .get(
     showCategoryValidator(IncomeCategory, "income category"),
-    fineIncomeCategory,
+    findIncomeCategory,
   )
   .put(
     UpdateCategoryValidator(IncomeCategory, "income category"),

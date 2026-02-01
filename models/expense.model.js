@@ -44,8 +44,8 @@ expenseSchema.virtual("userWallet", {
   justOne: true,
 });
 
-expenseSchema.virtual("incomeCategory", {
-  ref: "IncomeCategory",
+expenseSchema.virtual("expenseCategory", {
+  ref: "ExpenseCategory",
   localField: "category",
   foreignField: "_id",
   justOne: true,
@@ -57,7 +57,7 @@ expenseSchema.pre(/^find/, function (next) {
     select: "name balance ",
   });
   this.populate({
-    path: "incomeCategory",
+    path: "expenseCategory",
     select: "name",
   });
 });
@@ -65,6 +65,12 @@ expenseSchema.pre(/^find/, function (next) {
 expenseSchema.post("save", async function () {
   await Wallet.findByIdAndUpdate(this.wallet, {
     $inc: { balance: -this.amount },
+  });
+});
+
+expenseSchema.post("remove", async function () {
+  await Wallet.findByIdAndUpdate(this.wallet, {
+    $inc: { balance: this.amount },
   });
 });
 

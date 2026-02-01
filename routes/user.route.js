@@ -3,7 +3,7 @@ const { Router } = require("express");
 const {
   createUser,
   getAllUsers,
-  fineUser,
+  findUser,
   updateUser,
   addPhone,
   deleteUser,
@@ -40,7 +40,7 @@ router
 
 router
   .route("/:id")
-  .get(protect, allowedTo("admin"), showUserValidator, fineUser)
+  .get(protect, allowedTo("admin"), showUserValidator, findUser)
   .put(protect, allowedTo("admin"), updateUserValidator, updateUser)
   .delete(protect, allowedTo("admin"), deleteUserValidator, deleteUser);
 

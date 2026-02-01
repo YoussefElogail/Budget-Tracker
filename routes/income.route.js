@@ -2,7 +2,7 @@ const { Router } = require("express");
 
 const {
   createIncome,
-  finedIncome,
+  findIncome,
   updateIncome,
   deleteIncome,
   getAllIncomes,
@@ -31,7 +31,7 @@ router
   .get(protect, getAllIncomes);
 router
   .route("/:id")
-  .get(protect, allowedTo("user", "admin"), showIncomesValidator, finedIncome)
+  .get(protect, allowedTo("user", "admin"), showIncomesValidator, findIncome)
   .put(protect, allowedTo("user"), updateIncomeValidator, updateIncome)
   .delete(protect, allowedTo("user"), deleteIncomeValidator, deleteIncome);
 

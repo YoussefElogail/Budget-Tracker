@@ -34,9 +34,9 @@ const createUser = createOne(User, "user");
 // find all users
 const getAllUsers = getAll(User);
 
-//  fine one user
-// const fineUser = getOne(User);
-const fineUser = asyncHandler(async (req, res, next) => {
+//  find one user
+// const findUser = getOne(User);
+const findUser = asyncHandler(async (req, res, next) => {
   const user = await User.findById(req.params.id).populate({
     path: "wallets",
     select: "name balance -user",
@@ -112,7 +112,7 @@ const deleteUser = deleteOne(User, "user");
 module.exports = {
   createUser,
   getAllUsers,
-  fineUser,
+  findUser,
   updateUser,
   addPhone,
   addAddress,

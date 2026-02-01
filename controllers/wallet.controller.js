@@ -29,8 +29,8 @@ const createWallet = createOne(Wallet, "wallet");
 // find all expense categories
 const getAllWallets = getAll(Wallet);
 
-//  fined one wallet
-const finedWallet = getOne(Wallet);
+//  find one wallet
+const findWallet = getOne(Wallet);
 
 // update wallet
 const updateWallet = updateOne(Wallet, "wallet");
@@ -42,7 +42,7 @@ module.exports = {
   addUserToWallet,
   createWallet,
   getAllWallets,
-  finedWallet,
+  findWallet,
   updateWallet,
   deleteWallet,
   userWallets,
